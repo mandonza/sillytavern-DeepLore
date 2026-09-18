@@ -348,7 +348,6 @@ export const settingsConstraints = {
     librarianSessionHistoryMessages: { min: 5, max: 100 },
     librarianAgenticHistoryMessages: { min: 10, max: 200 },
     librarianSessionToolCallCap: { min: 0, max: 1000 },
-    aiSearchMaxTokens: { min: 64, max: 4096 },
     aiSearchTimeout: { min: 1000, max: 999999 },
     aiSearchScanDepth: { min: 1, max: 100 },
     aiSearchManifestSummaryLength: { min: 100, max: 1000 },

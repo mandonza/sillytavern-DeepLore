@@ -88,7 +88,6 @@ const settingsConstraints = {
     maxRecursionSteps: { min: 1, max: 10 },
     cacheTTL: { min: 0, max: 86400 },
     reviewResponseTokens: { min: 0, max: 100000 },
-    aiSearchMaxTokens: { min: 64, max: 4096 },
     aiSearchTimeout: { min: 1000, max: 30000 },
     aiSearchScanDepth: { min: 1, max: 100 },
     aiSearchManifestSummaryLength: { min: 100, max: 1000 },
@@ -513,7 +512,8 @@ test('validateSettings: clamps values', () => {
 test('validateSettings: clamps AI settings', () => {
     const settings = { aiSearchMaxTokens: 10000, aiSearchTimeout: 500, syncPollingInterval: 5000 };
     validateSettings(settings, settingsConstraints);
-    assertEqual(settings.aiSearchMaxTokens, 4096, 'should clamp AI max tokens');
+    // aiSearchMaxTokens has no constraint entry (4096 cap removed) — any value passes through.
+    assertEqual(settings.aiSearchMaxTokens, 10000, 'should NOT clamp AI max tokens (cap removed)');
     assertEqual(settings.aiSearchTimeout, 1000, 'should clamp AI timeout to min');
     assertEqual(settings.syncPollingInterval, 3600, 'should clamp sync interval to max');
 });
