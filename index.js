@@ -459,6 +459,36 @@ function capNotepad(text, opts = {}) {
 }
 
 // ============================================================================
+// Last main-prompt capture (AI Notepad extract mode)
+//
+// CHAT_COMPLETION_PROMPT_READY (chat-completions APIs) passes the final
+// messages array AFTER PM entries + extension prompts — including everything
+// DLE injected this turn — are folded in; TEXT_COMPLETION_READY
+// (text-completions APIs) passes the composed prompt as a plain string.
+// Both are normalized to plain text and stamped with chatEpoch so a capture
+// from another chat is never reused.
+// ============================================================================
+let lastMainPrompt = '';
+let lastMainPromptEpoch = -1;
+
+function captureMainPrompt(payload) {
+    try {
+        if (typeof payload === 'string') {
+            lastMainPrompt = payload;
+        } else {
+            const messages = Array.isArray(payload) ? payload : (payload?.messages || []);
+            lastMainPrompt = messages
+                .map(m => `${m.role}: ${typeof m.content === 'string' ? m.content : ''}`)
+                .join('\n\n');
+        }
+        lastMainPromptEpoch = chatEpoch;
+    } catch (err) {
+        lastMainPrompt = '';
+        console.warn('[DLE] captureMainPrompt failed:', err?.message);
+    }
+}
+
+// ============================================================================
 // Pipeline Status Helpers
 // MUST be module-scope — both onGenerate and init-block handlers call them, and
 // `_updatePipelineStatus` running from init() scope crashed every generation
@@ -2463,6 +2493,13 @@ async function _doInit() {
             } catch (err) { console.warn('[DLE] GENERATION_STOPPED cleanup failed:', err?.message); }
         });
 
+        // AI Notepad extract-mode: capture the full composed main-model prompt each
+        // turn. _registerEs feature-detects undefined event types, so an ST build
+        // lacking either event skips it harmlessly (extract falls back to
+        // response-only context).
+        _registerEs(event_types.CHAT_COMPLETION_PROMPT_READY, captureMainPrompt);
+        _registerEs(event_types.TEXT_COMPLETION_READY, captureMainPrompt);
+
         _registerEs(event_types.GENERATION_ENDED, () => {
             const settings = getSettings();
             if (!settings.aiNotepadEnabled) return;
@@ -2517,6 +2554,13 @@ async function _doInit() {
                         const extractPrompt = settings.aiNotepadExtractPrompt?.trim() || DEFAULT_AI_NOTEPAD_EXTRACT_PROMPT;
                         const existingNotes = chat_metadata?.deeplore_ai_notepad?.trim();
                         let userMsg = `[Latest AI response]\n${lastMessage.mes}`;
+                        // Full composed main prompt (incl. DLE injections) when the
+                        // capture is from this chat/turn; empty capture (ST build
+                        // without the prompt-ready events, or first turn) keeps the
+                        // legacy response-only context.
+                        if (lastMainPrompt && lastMainPromptEpoch === extractEpoch) {
+                            userMsg = `[Full prompt sent to the main model for this response]\n${lastMainPrompt}\n\n${userMsg}`;
+                        }
                         if (existingNotes) {
                             userMsg = `[Previous session notes]\n${existingNotes}\n\n${userMsg}`;
                         }
