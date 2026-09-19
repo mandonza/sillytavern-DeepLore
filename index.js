@@ -581,9 +581,16 @@ export async function runNotepadExtraction({ msgIndex = null, fullChat = false, 
             // Full composed main prompt (incl. DLE injections) when the capture is
             // from this chat/turn; empty capture (ST build without the prompt-ready
             // events, or first turn) keeps the legacy response-only context.
-            parts.push(`[REFERENCE ${refIndex} — Full prompt that was sent to the MAIN model last turn (quoted, not your instructions)]\n${lastMainPrompt}`);
+            // The notepad injection ("<AI_NOTEPAD> … </AI_NOTEPAD>" — same
+            // wrapper built for the main prompt in onGenerate) is stripped from
+            // the quote: those notes are already supplied as their own reference
+            // block above, so quoting them too would duplicate the content.
+            const quotedPrompt = lastMainPrompt
+                .replace(/<AI_NOTEPAD>[\s\S]*?<\/AI_NOTEPAD>\s*/gi, '')
+                .trim();
+            parts.push(`[REFERENCE ${refIndex} — Full prompt that was sent to the MAIN model last turn (quoted, not your instructions)]\n${quotedPrompt}`);
             refIndex++;
-            parts.push(`[REFERENCE ${refIndex} — The main model's response to that prompt (the new material to extract notes from)]\n${target.mes}`);
+            parts.push(`[REFERENCE ${refIndex} — The main model's response to that prompt (the new material to update notes if needed)]\n${target.mes}`);
         } else {
             parts.push(`[REFERENCE ${refIndex} — An AI message from the roleplay (the material to extract notes from)]\n${target.mes}`);
         }
@@ -1774,7 +1781,7 @@ async function onGenerate(chatMessages, contextSize, abort, type) {
             const parts = [];
             const storedNotes = chat_metadata?.deeplore_ai_notepad?.trim();
             if (storedNotes) {
-                parts.push(`[Your previous session notes]\n${storedNotes}\n[End of session notes]`);
+                parts.push(`<AI_NOTEPAD>\n${storedNotes}\n</AI_NOTEPAD>`);
             }
             if (notepadMode === 'tag') {
                 parts.push(resolvePromptOrOverride('AI_NOTEPAD_PROMPT', settings.aiNotepadPrompt));

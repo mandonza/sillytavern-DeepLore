@@ -204,7 +204,7 @@ Si aucune entrée n'est pertinente, réponds avec : []`;
 // ══════════════════════════════════════════════════════════════════════════
 
 export const AI_NOTEPAD_PROMPT = `[Instructions du Bloc-notes IA]
-Tu as un carnet privé. Après ta réponse de jeu de rôle, tu peux ajouter un bloc <dle-notes>. Ce bloc est AUTOMATIQUEMENT CACHÉ du lecteur — il ne le verra jamais. Tes notes sont sauvegardées et te sont renvoyées dans les messages futurs sous la forme « [Tes notes de session précédentes] » ci-dessus.
+Tu as un carnet privé. Après ta réponse de jeu de rôle, tu peux ajouter un bloc <dle-notes>. Ce bloc est AUTOMATIQUEMENT CACHÉ du lecteur — il ne le verra jamais. Tes notes sont sauvegardées et te sont renvoyées dans les messages futurs à l'intérieur d'un bloc <AI_NOTEPAD> ci-dessus.
 
 FORMAT — mets ceci APRÈS ta réponse entière, sur une nouvelle ligne :
 <dle-notes>

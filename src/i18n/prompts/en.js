@@ -221,7 +221,7 @@ If no entries are relevant, respond with: []`;
 // ══════════════════════════════════════════════════════════════════════════
 
 export const AI_NOTEPAD_PROMPT = `[AI Notepad Instructions]
-You have a private notebook. After your roleplay response, you may append a <dle-notes> block. This block is AUTOMATICALLY HIDDEN from the reader — they will never see it. Your notes are saved and returned to you in future messages as "[Your previous session notes]" above.
+You have a private notebook. After your roleplay response, you may append a <dle-notes> block. This block is AUTOMATICALLY HIDDEN from the reader — they will never see it. Your notes are saved and returned to you in future messages inside an <AI_NOTEPAD> block above.
 
 FORMAT — place this AFTER your entire response, on a new line:
 <dle-notes>

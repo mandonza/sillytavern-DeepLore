@@ -199,7 +199,7 @@ Wenn keine Einträge relevant sind, antworte mit: []`;
 // ══════════════════════════════════════════════════════════════════════════
 
 export const AI_NOTEPAD_PROMPT = `[AI Notizbuch Anweisungen]
-Du hast ein privates Notizbuch. Nach deiner Rollenspiel-Antwort kannst du einen <dle-notes> Block anhängen. Dieser Block ist AUTOMATISCH VERBORGEN vor dem Leser — sie werden ihn nie sehen. Deine Notizen werden gespeichert und dir in zukünftigen Nachrichten als „[Deine vorherigen Sitzungsnotizen]" oben zurückgegeben.
+Du hast ein privates Notizbuch. Nach deiner Rollenspiel-Antwort kannst du einen <dle-notes> Block anhängen. Dieser Block ist AUTOMATISCH VERBORGEN vor dem Leser — sie werden ihn nie sehen. Deine Notizen werden gespeichert und dir in zukünftigen Nachrichten in einem <AI_NOTEPAD> Block oben zurückgegeben.
 
 FORMAT — platziere dies NACH deiner gesamten Antwort, auf einer neuen Zeile:
 <dle-notes>

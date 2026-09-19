@@ -60,7 +60,7 @@ The AI writes `<dle-notes>` blocks in its response. DLE extracts them post-gener
     → saveMetadataDebounced()
 ```
 
-**Injection (inside `onGenerate()` AI Notepad block, uses `DEFAULT_AI_NOTEPAD_PROMPT`):** Injects previous notes as `[Your previous session notes]` block + instruction prompt (DEFAULT_AI_NOTEPAD_PROMPT) at configured position/depth/role.
+**Injection (inside `onGenerate()` AI Notepad block, uses `DEFAULT_AI_NOTEPAD_PROMPT`):** Injects previous notes wrapped in `<AI_NOTEPAD>…</AI_NOTEPAD>` + instruction prompt (DEFAULT_AI_NOTEPAD_PROMPT) at configured position/depth/role.
 
 ### Extract Mode
 DLE strips visible note-taking prose, then fires an async API call to extract session notes.

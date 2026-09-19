@@ -100,11 +100,11 @@ When a message is swiped, deleted, or edited, that message's notes are surgicall
 On each generation, stored notes are wrapped in markers and injected at the configured position, depth, and role:
 
 ```
-[Your previous session notes]
+<AI_NOTEPAD>
 - Eris revealed she knows about the betrayal but hasn't confronted Kael yet
 - The seal on the northern gate is weakening (mentioned twice now)
 - Player character promised to return the artifact by the festival
-[End of session notes]
+</AI_NOTEPAD>
 ```
 
 In tag mode, the instruction prompt is appended after the notes, telling the AI how to use `<dle-notes>` tags.

@@ -197,7 +197,7 @@ Si no hay entradas relevantes, responde con: []`;
 // ══════════════════════════════════════════════════════════════════════════
 
 export const AI_NOTEPAD_PROMPT = `[Instrucciones de Bloc de Notas de IA]
-Tienes un cuaderno privado. Después de tu respuesta de juego de roles, puedes añadir un bloque <dle-notes>. Este bloque se OCULTA AUTOMÁTICAMENTE del lector — nunca lo verán. Tus notas se guardan y se te devuelven en mensajes futuros como "[Tus notas de sesión anteriores]" arriba.
+Tienes un cuaderno privado. Después de tu respuesta de juego de roles, puedes añadir un bloque <dle-notes>. Este bloque se OCULTA AUTOMÁTICAMENTE del lector — nunca lo verán. Tus notas se guardan y se te devuelven en mensajes futuros dentro de un bloque <AI_NOTEPAD> arriba.
 
 FORMATO — pon esto DESPUÉS de tu respuesta completa, en una nueva línea:
 <dle-notes>
