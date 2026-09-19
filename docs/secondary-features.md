@@ -72,7 +72,7 @@ DLE strips visible note-taking prose, then fires an async API call to extract se
 → Capture extractEpoch = chatEpoch, swipeIdAtStart
 → Async:
     → setNotepadExtractInProgress(true)
-    → context = [Full prompt sent to the main model] (captured from CHAT_COMPLETION_PROMPT_READY / TEXT_COMPLETION_READY, includes DLE's injections; skipped when the capture is stale/absent) + [Latest AI response], optionally prefixed by [Previous session notes]
+    → context = [YOUR TASK] reminder + numbered [REFERENCE N] blocks: previous session notes (optional), the full prompt sent to the main model (captured from CHAT_COMPLETION_PROMPT_READY / GENERATE_AFTER_COMBINE_PROMPTS, includes DLE's injections; skipped when the capture is stale/absent), and the main model's response
     → callAI(extractPrompt, context, resolveConnectionConfig('aiNotepad'))
     → POST-AWAIT: check extractEpoch === chatEpoch
     → POST-AWAIT: check message.swipe_id === swipeIdAtStart (BUG-AUDIT-CNEW01 — prevents writing notes to wrong message if user swiped during async extraction)
