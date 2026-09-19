@@ -396,7 +396,7 @@
   "dle_cmd_debug_enum_on": "强制开启调试日志",
   "dle_cmd_debug_help": "切换调试日志。用法:/dle-debug [on|off]",
   "dle_cmd_debug_toggled_toast": "调试模式 ${0}",
-  "dle_cmd_desc_ai_notepad": "查看或清除 AI 写入的会话笔记",
+  "dle_cmd_desc_ai_notepad": "查看、清除或手动提取 AI 写入的会话笔记",
   "dle_cmd_desc_analytics": "查看词条匹配/注入分析",
   "dle_cmd_desc_block": "屏蔽一个词条(在本对话中永不注入)",
   "dle_cmd_desc_browse": "搜索并预览仓库词条(别名:/dle-b)",

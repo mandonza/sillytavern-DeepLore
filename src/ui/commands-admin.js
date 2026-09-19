@@ -1,5 +1,5 @@
 /** DeepLore — Slash Commands: Admin & Status */
-import { saveSettingsDebounced, chat_metadata } from '../../../../../../script.js';
+import { saveSettingsDebounced, chat, chat_metadata } from '../../../../../../script.js';
 import { saveMetadataDebounced } from '../../../../../extensions.js';
 import { escapeHtml } from '../../../../../utils.js';
 import { callGenericPopup, POPUP_TYPE } from '../../../../../popup.js';
@@ -22,6 +22,10 @@ import { showNotebookPopup, showAiNotepadPopup, buildCopyButton, attachCopyHandl
 import { consoleBuffer } from '../diagnostics/interceptors.js';
 import { tr, trf } from '../i18n/i18n.js';
 import { notify } from '../toast-dedup.js';
+// Circular by design (index.js → commands.js → commands-admin.js → index.js):
+// runNotepadExtraction is a hoisted function declaration, only invoked at
+// slash-command runtime — long after both modules finished evaluating.
+import { runNotepadExtraction } from '../../index.js';
 
 /**
  * Entry shapes: { cmd, desc, i18nKey } for commands, { sep, label, i18nKey } for
@@ -45,7 +49,7 @@ export const DLE_COMMANDS = [
     { cmd: '/dle-cache-info', desc: 'View vault cache status, size, and clear cache', i18nKey: 'dle_cmd_desc_cache_info' },
     { cmd: '/dle-clear', desc: 'Clear vault cache and live index without re-fetching', i18nKey: 'dle_cmd_desc_clear' },
     { cmd: '/dle-notebook', desc: 'Edit the Notebook for this chat', i18nKey: 'dle_cmd_desc_notebook' },
-    { cmd: '/dle-ai-notepad', desc: 'View or clear AI-written session notes', i18nKey: 'dle_cmd_desc_ai_notepad' },
+    { cmd: '/dle-ai-notepad', desc: 'View, clear, or manually extract AI-written session notes', i18nKey: 'dle_cmd_desc_ai_notepad' },
     { cmd: '/dle-scribe', desc: 'Run Session Scribe now', i18nKey: 'dle_cmd_desc_scribe' },
     { cmd: '/dle-scribe-history', desc: 'View past Scribe notes', i18nKey: 'dle_cmd_desc_scribe_history' },
     { cmd: '/dle-newlore', desc: 'AI suggests new lorebook entries from chat', i18nKey: 'dle_cmd_desc_newlore' },
@@ -91,11 +95,28 @@ export function registerAdminCommands() {
     SlashCommandParser.addCommandObject(SlashCommand.fromProps({
         name: 'dle-ai-notepad',
         callback: async (_args, value) => {
-            const subcommand = (value || '').trim().toLowerCase();
+            const raw = (value || '').trim();
+            const subcommand = raw.toLowerCase();
             if (subcommand === 'clear') {
                 chat_metadata.deeplore_ai_notepad = '';
                 saveMetadataDebounced();
                 toastr.success(tr('dle_cmd_ai_notepad_cleared_toast'), 'DeepLore');
+                return '';
+            }
+            if (subcommand === 'extract' || subcommand.startsWith('extract ')) {
+                // No index → full-chat bootstrap (transcript of the whole conversation);
+                // explicit index → extract from that single AI message (0-based).
+                const arg = raw.slice('extract'.length).trim();
+                if (!arg) {
+                    await runNotepadExtraction({ fullChat: true, manual: true });
+                    return '';
+                }
+                const idx = Number(arg);
+                if (!Number.isInteger(idx) || idx < 0 || idx >= chat.length) {
+                    toastr.error(`Invalid message index "${arg}" — must be 0–${chat.length - 1}.`, 'DeepLore');
+                    return '';
+                }
+                await runNotepadExtraction({ msgIndex: idx, manual: true });
                 return '';
             }
             await showAiNotepadPopup();
@@ -105,9 +126,12 @@ export function registerAdminCommands() {
             description: 'optional subcommand',
             typeList: [ARGUMENT_TYPE.STRING],
             isRequired: false,
-            enumProvider: () => [new SlashCommandEnumValue('clear', 'wipe AI Notepad for this chat')],
+            enumProvider: () => [
+                new SlashCommandEnumValue('clear', 'wipe AI Notepad for this chat'),
+                new SlashCommandEnumValue('extract', 'run AI extraction now (whole chat, or one message index: extract 12)'),
+            ],
         })],
-        helpString: 'View or clear AI-written session notes. Usage: /dle-ai-notepad [clear]',
+        helpString: 'View, clear, or manually extract AI-written session notes. Usage: /dle-ai-notepad [clear | extract [message index]] — extract with no index processes the full chat transcript; extract <index> processes that single AI message.',
         returns: ARGUMENT_TYPE.STRING,
     }));
 

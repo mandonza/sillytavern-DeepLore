@@ -395,7 +395,7 @@
   "dle_cmd_debug_enum_on": "force debug logging on",
   "dle_cmd_debug_help": "Toggle debug logging. Usage: /dle-debug [on|off]",
   "dle_cmd_debug_toggled_toast": "Debug mode ${0}",
-  "dle_cmd_desc_ai_notepad": "View or clear AI-written session notes",
+  "dle_cmd_desc_ai_notepad": "View, clear, or manually extract AI-written session notes",
   "dle_cmd_desc_analytics": "View entry match/injection analytics",
   "dle_cmd_desc_block": "Block an entry (never inject in this chat)",
   "dle_cmd_desc_browse": "Search and preview vault entries (alias: /dle-b)",

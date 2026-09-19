@@ -396,7 +396,7 @@
   "dle_cmd_debug_enum_on": "fuerza el logging de debug a encendido",
   "dle_cmd_debug_help": "Activa o desactiva el logging de debug. Uso: /dle-debug [on|off]",
   "dle_cmd_debug_toggled_toast": "Modo debug ${0}",
-  "dle_cmd_desc_ai_notepad": "Ver o limpiar las notas de sesión escritas por la IA",
+  "dle_cmd_desc_ai_notepad": "Ver, limpiar o extraer manualmente las notas de sesión escritas por la IA",
   "dle_cmd_desc_analytics": "Ver analíticas de coincidencias/inyecciones de entradas",
   "dle_cmd_desc_block": "Bloquea una entrada (nunca se inyecta en este chat)",
   "dle_cmd_desc_browse": "Busca y previsualiza entradas de la bóveda (alias: /dle-b)",

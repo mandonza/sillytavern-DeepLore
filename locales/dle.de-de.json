@@ -396,7 +396,7 @@
   "dle_cmd_debug_enum_on": "Debug-Logging aktivieren",
   "dle_cmd_debug_help": "Debug-Logging umschalten. Nutzung: /dle-debug [on|off]",
   "dle_cmd_debug_toggled_toast": "Debug-Modus ${0}",
-  "dle_cmd_desc_ai_notepad": "Von der KI geschriebene Sitzungsnotizen anzeigen oder löschen",
+  "dle_cmd_desc_ai_notepad": "Von der KI geschriebene Sitzungsnotizen anzeigen, löschen oder manuell extrahieren",
   "dle_cmd_desc_analytics": "Abgleich-/Injektions-Statistiken der Einträge anzeigen",
   "dle_cmd_desc_block": "Einen Eintrag blockieren (in diesem Chat nie injizieren)",
   "dle_cmd_desc_browse": "Vault-Einträge suchen und vorschauen (Alias: /dle-b)",

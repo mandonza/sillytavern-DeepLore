@@ -396,7 +396,7 @@
   "dle_cmd_debug_enum_on": "デバッグログを強制オン",
   "dle_cmd_debug_help": "デバッグログのON/OFFを切り替えます。使い方: /dle-debug [on|off]",
   "dle_cmd_debug_toggled_toast": "デバッグモード: ${0}",
-  "dle_cmd_desc_ai_notepad": "AIが書いたセッションノートを表示またはクリア",
+  "dle_cmd_desc_ai_notepad": "AIが書いたセッションノートを表示・クリア・手動抽出",
   "dle_cmd_desc_analytics": "エントリーのマッチ/注入の解析を表示",
   "dle_cmd_desc_block": "エントリーをブロック（このチャットでは注入しない）",
   "dle_cmd_desc_browse": "ヴォルトエントリーを検索・プレビュー（エイリアス: /dle-b）",

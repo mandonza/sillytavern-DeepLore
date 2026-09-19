@@ -396,7 +396,7 @@
   "dle_cmd_debug_enum_on": "forcer le journal de debug activé",
   "dle_cmd_debug_help": "Bascule le journal de debug. Utilisation : /dle-debug [on|off]",
   "dle_cmd_debug_toggled_toast": "Mode debug ${0}",
-  "dle_cmd_desc_ai_notepad": "Afficher ou vider les notes de session écrites par l'IA",
+  "dle_cmd_desc_ai_notepad": "Afficher, vider ou extraire manuellement les notes de session écrites par l'IA",
   "dle_cmd_desc_analytics": "Afficher les analytiques de correspondance/injection des entrées",
   "dle_cmd_desc_block": "Bloquer une entrée (ne jamais injecter dans ce chat)",
   "dle_cmd_desc_browse": "Rechercher et prévisualiser les entrées du coffre (alias : /dle-b)",

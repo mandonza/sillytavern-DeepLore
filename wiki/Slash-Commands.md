@@ -264,12 +264,16 @@ Open the Author's Notebook editor for the current chat. Content is injected as a
 
 ---
 
-### `/dle-ai-notepad [clear]`
-View or clear the AI Notepad for the current chat.
+### `/dle-ai-notepad [clear | extract [index]]`
+View, clear, or manually extract AI Notepad notes for the current chat.
 
 **Usage:**
 - `/dle-ai-notepad` open the popup with all accumulated AI notes
 - `/dle-ai-notepad clear` clear all AI notes for this chat
+- `/dle-ai-notepad extract` run extraction on the **full chat transcript** (useful to bootstrap notes on a conversation that predates enabling the Notepad)
+- `/dle-ai-notepad extract 12` run extraction on a single AI message (0-based index)
+
+**Extract details:** uses the AI Notepad connection and the same extraction prompt/guards as the automatic post-generation path (chat-switch, swipe, and in-progress locks). When targeting the latest message, the full composed main-model prompt is included as reference context when available; older messages or full-chat mode send the transcript without it. Notes are appended to the accumulated notepad (subject to the entry cap and pins).
 
 **How it works:** when AI Notepad is enabled, the writing AI is instructed to append session notes inside `<dle-notes></dle-notes>` tags. DLE strips the tags from the visible chat, stores the notes per-chat, and reinjects them into later messages so the AI keeps continuity.
 
@@ -401,7 +405,7 @@ Run the guided setup wizard: connect the Obsidian vault, configure the lorebook 
 | `/dle-logs [count]` | Recent DLE console entries |
 | `/dle-cache-info` | Vault cache status and storage |
 | `/dle-notebook` | Open Author's Notebook editor |
-| `/dle-ai-notepad [clear]` | View or clear AI Notepad |
+| `/dle-ai-notepad [clear\|extract [index]]` | View, clear, or manually extract AI Notepad notes |
 | `/dle-newlore` (`/dle-suggest`) | AI suggests new entries |
 | `/dle-optimize-keys <name>` | AI suggests better keywords |
 | `/dle-summarize` | Generate missing summaries |
