@@ -165,7 +165,7 @@ export const defaultSettings = {
     hierarchicalPreFilter: false,          // E2a: enable hierarchical category pre-filter for large candidate sets
     hierarchicalAggressiveness: 0.8,       // E2: 0.0 (keep all) to 0.8 (aggressive); min retention = 1 - this
     manifestSummaryMode: 'prefer_summary', // E8: prefer_summary, summary_only, content_only
-    aiErrorFallback: 'keyword',            // E4: keyword, constants_only, bootstrap_only, none
+    aiErrorFallback: 'keyword',            // E4: keyword, constants_only, bootstrap_only, keep_previous, none
     aiEmptyFallback: 'constants',          // E4: constants, constants_bootstrap, keyword, none
     contextualGatingTolerance: 'strict',   // E5: strict, moderate, lenient
     multiVaultConflictResolution: 'all',   // E6: all, first, last, merge

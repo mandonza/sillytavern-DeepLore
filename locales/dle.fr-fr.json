@@ -53,6 +53,7 @@
   "dle_ai_fallback_constants": "Constantes uniquement",
   "dle_ai_fallback_constants_bootstrap": "Constantes + démarrage",
   "dle_ai_fallback_keyword": "Correspondance par mots-clés",
+  "dle_ai_fallback_keep_previous": "Conserver la recherche IA précédente",
   "dle_ai_fallback_none": "Rien (ignorer l'injection)",
   "dle_ai_manifest_fields_label": "Champs personnalisés dans le manifeste (vide = tous)",
   "dle_ai_manifest_fields_placeholder": "ère, faction, ambiance",

@@ -53,6 +53,7 @@
   "dle_ai_fallback_constants": "Только константы",
   "dle_ai_fallback_constants_bootstrap": "Константы + стартовые",
   "dle_ai_fallback_keyword": "Сопоставление по ключевым словам",
+  "dle_ai_fallback_keep_previous": "Сохранять предыдущий поиск ИИ",
   "dle_ai_fallback_none": "Ничего (пропустить внедрение)",
   "dle_ai_manifest_fields_label": "Пользовательские поля в манифесте (пусто = все)",
   "dle_ai_manifest_fields_placeholder": "эпоха, фракция, настроение",

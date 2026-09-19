@@ -53,6 +53,7 @@
   "dle_ai_fallback_constants": "Nur Konstanten",
   "dle_ai_fallback_constants_bootstrap": "Konstanten + Starter",
   "dle_ai_fallback_keyword": "Schlüsselwortabgleich",
+  "dle_ai_fallback_keep_previous": "Vorherige KI-Suche behalten",
   "dle_ai_fallback_none": "Nichts (Injektion überspringen)",
   "dle_ai_manifest_fields_label": "Eigene Felder im Manifest (leer = alle)",
   "dle_ai_manifest_fields_placeholder": "epoche, fraktion, stimmung",

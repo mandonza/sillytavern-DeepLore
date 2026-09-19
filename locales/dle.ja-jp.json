@@ -53,6 +53,7 @@
   "dle_ai_fallback_constants": "コンスタントのみ",
   "dle_ai_fallback_constants_bootstrap": "コンスタント＋ブートストラップ",
   "dle_ai_fallback_keyword": "キーワードマッチング",
+  "dle_ai_fallback_keep_previous": "前回のAI検索を保持",
   "dle_ai_fallback_none": "なし（注入をスキップ）",
   "dle_ai_manifest_fields_label": "マニフェストに含めるカスタムフィールド（空＝すべて）",
   "dle_ai_manifest_fields_placeholder": "era, faction, mood",

@@ -53,6 +53,7 @@
   "dle_ai_fallback_constants": "仅常量",
   "dle_ai_fallback_constants_bootstrap": "常量 + 启动",
   "dle_ai_fallback_keyword": "关键词匹配",
+  "dle_ai_fallback_keep_previous": "保留上一次 AI 搜索",
   "dle_ai_fallback_none": "什么都不注入(跳过)",
   "dle_ai_manifest_fields_label": "清单中的自定义字段(留空 = 全部)",
   "dle_ai_manifest_fields_placeholder": "年代、阵营、氛围",

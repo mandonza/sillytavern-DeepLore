@@ -53,6 +53,7 @@
   "dle_ai_fallback_constants": "Solo constantes",
   "dle_ai_fallback_constants_bootstrap": "Constantes + Bootstrap",
   "dle_ai_fallback_keyword": "Coincidencia por palabra clave",
+  "dle_ai_fallback_keep_previous": "Mantener la búsqueda de IA anterior",
   "dle_ai_fallback_none": "Nada (omitir inyección)",
   "dle_ai_manifest_fields_label": "Campos personalizados en el manifiesto (vacío = todos)",
   "dle_ai_manifest_fields_placeholder": "era, faccion, humor",

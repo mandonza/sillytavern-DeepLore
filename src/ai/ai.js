@@ -656,6 +656,29 @@ Example: ["Characters - Inner Circle", "Locations - Districts", "Lore - Magic Sy
 }
 
 /**
+ * Replay the last successful AI search selection — backs the
+ * `aiErrorFallback: 'keep_previous'` policy ("keep the previous search until a
+ * new one succeeds"). The cache is only written on success (never on error),
+ * so after a failed call it still holds the previous selection. Cached
+ * (vaultSource, title) pairs are mapped back onto live entries from `pool`
+ * (the run's vault snapshot), so entries deleted/renamed since drop out
+ * cleanly instead of injecting stale content.
+ * @param {VaultEntry[]} [pool] - replay pool; falls back to vaultIndex
+ * @returns {VaultEntry[]|null} null when no usable previous selection exists
+ */
+export function getLastAiSearchSelection(pool) {
+    const cached = aiSearchCache.results;
+    if (!Array.isArray(cached) || cached.length === 0 || !(aiSearchCache.chatLineCount > 0)) return null;
+    const replayPool = (Array.isArray(pool) && pool.length > 0) ? pool : vaultIndex;
+    const cacheKey = (vaultSource, title) => `${vaultSource || ''}:${(title || '').toLowerCase()}`;
+    const composite = new Map(replayPool.map(e => [cacheKey(e.vaultSource, e.title), e]));
+    const entries = cached
+        .map(r => composite.get(cacheKey(r.vaultSource, r.title)))
+        .filter(Boolean);
+    return entries.length > 0 ? entries : null;
+}
+
+/**
  * @typedef {object} AiSearchMatch
  * @property {VaultEntry} entry
  * @property {string} confidence - "high", "medium", or "low"

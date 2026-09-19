@@ -11,7 +11,7 @@ import {
     trackerKey,
 } from '../state.js';
 import { DEFAULT_FIELD_DEFINITIONS } from '../fields.js';
-import { buildCandidateManifest, aiSearch, hierarchicalPreFilter } from '../ai/ai.js';
+import { buildCandidateManifest, aiSearch, hierarchicalPreFilter, getLastAiSearchSelection } from '../ai/ai.js';
 import { isForceInjected, comparePriority } from '../helpers.js';
 import { ensureIndexFresh } from '../vault/vault.js';
 import { name2 } from '../../../../../../script.js';
@@ -48,6 +48,20 @@ function resolveAiFallback(aiResult, trace, settings, { bootstrapActive, vaultSn
         trace.aiFallback = true;
         trace.aiError = aiResult.errorMessage || ''; // BUG-004: surface to toast.
         const fallback = settings.aiErrorFallback || 'keyword';
+        if (fallback === 'keep_previous') {
+            // "Keep the previous successful search until a new one succeeds": replay
+            // the last successful AI selection (cache is only written on success) on
+            // top of the force-inject base. No usable previous selection (first-ever
+            // run failed) degrades to the keyword ladder rather than nothing.
+            const kept = getLastAiSearchSelection(vaultSnapshot);
+            if (kept) {
+                trace.aiKeptPrevious = kept.length;
+                const base = vaultSnapshot.filter(e => e.constant || (bootstrapActive && e.bootstrap));
+                const seen = new Set(base.map(trackerKey));
+                return [...base, ...kept.filter(e => !seen.has(trackerKey(e)))];
+            }
+            return keywordEntries('error');
+        }
         if (fallback === 'keyword') return keywordEntries('error');
         if (fallback === 'constants_only') return vaultSnapshot.filter(e => e.constant);
         if (fallback === 'bootstrap_only') return vaultSnapshot.filter(e => bootstrapActive && e.bootstrap);
@@ -228,6 +242,11 @@ export async function runPipeline(chat, externalSnapshot, contextualGatingContex
             });
             if (fallbackEntries !== null) {
                 finalEntries = fallbackEntries;
+                if (trace.aiKeptPrevious) {
+                    for (const e of finalEntries) {
+                        if (!matchedKeys.has(trackerKey(e))) matchedKeys.set(trackerKey(e), 'AI (previous): kept after search error');
+                    }
+                }
             } else {
                 finalEntries = [...alwaysInject, ...aiResult.results.map(r => r.entry).filter(e => !isForceInjected(e, { bootstrapActive }))];
                 for (const r of aiResult.results) {
@@ -330,6 +349,12 @@ export async function runPipeline(chat, externalSnapshot, contextualGatingContex
             });
             if (fallbackEntries !== null) {
                 finalEntries = fallbackEntries;
+                if (trace.aiKeptPrevious) {
+                    for (const e of finalEntries) {
+                        const tk = trackerKey(e);
+                        if (!matchedKeys.has(tk)) matchedKeys.set(tk, 'AI (previous): kept after search error');
+                    }
+                }
             } else {
                 const ctx = { bootstrapActive };
                 const alwaysInject = keywordResult.matched.filter(e => isForceInjected(e, ctx));
