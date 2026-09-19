@@ -339,7 +339,6 @@ export const settingsConstraints = {
     maxRecursionSteps: { min: 1, max: 10 },
     cacheTTL: { min: 0, max: 86400 },
     reviewResponseTokens: { min: 0, max: 100000 },
-    aiNotepadMaxTokens: { min: 256, max: 8192 },
     aiNotepadTimeout: { min: 5000, max: 999999 },
     aiNotepadMaxEntries: { min: 0, max: 1000 },
     aiNotepadFuzzyDedupThreshold: { min: 0.1, max: 1 },

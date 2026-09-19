@@ -64,7 +64,7 @@ Extract mode is useful when your writing model doesn't reliably follow the `<dle
 | Connection Mode | Inherit | `inherit` (resolves to AI Search settings) or `profile` (an ST Connection Manager profile) |
 | Profile ID | (none) | Which ST profile to use for extract mode |
 | Model | (none) | Model override for extract mode |
-| Max Tokens | 1024 | Token limit for the extraction API call (256-8192) |
+| Max Tokens | 1024 | Token limit for the extraction API call (any value; reasoning tokens count toward it on thinking models) |
 | Timeout | 30s (30000ms) | API timeout for extraction (5000-999999ms) |
 
 ---

@@ -229,7 +229,7 @@ AI-managed session notes that accumulate context across a conversation. The AI e
 | **Connection Mode** | `inherit` | Radio | Extract mode only. `inherit` uses AI Search, or pick `profile`. |
 | **Connection Profile** | (none) | Select | Extract mode, profile only. |
 | **Model Override** | (none) | Text | Extract mode. Override the extraction model. |
-| **Max Response Tokens** | `1024` | 256-8192 | Extract mode. Maximum tokens for the extraction response. |
+| **Max Response Tokens** | `1024` | any (min 256 recommended) | Extract mode. Maximum tokens for the extraction response (includes reasoning tokens on thinking models). |
 | **Timeout (ms)** | `30000` | 5000-999999 | Extract mode. Request timeout. |
 
 Position, depth, and role for the AI Notepad live on the Injection tab.
