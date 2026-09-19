@@ -461,24 +461,37 @@ function capNotepad(text, opts = {}) {
 // ============================================================================
 // Last main-prompt capture (AI Notepad extract mode)
 //
-// CHAT_COMPLETION_PROMPT_READY (chat-completions APIs) passes the final
-// messages array AFTER PM entries + extension prompts — including everything
-// DLE injected this turn — are folded in; TEXT_COMPLETION_READY
-// (text-completions APIs) passes the composed prompt as a plain string.
-// Both are normalized to plain text and stamped with chatEpoch so a capture
-// from another chat is never reused.
+// CHAT_COMPLETION_PROMPT_READY (chat-completions APIs) passes
+// { chat: <messages[]>, dryRun } AFTER PM entries + extension prompts —
+// including everything DLE injected this turn — are folded in;
+// GENERATE_AFTER_COMBINE_PROMPTS (text-completions APIs, script.js) passes
+// { prompt: <string>, dryRun }. dryRun captures (token counting, prompt
+// inspection) are skipped so a post-generation dry run can't clobber the
+// real capture. Stamped with chatEpoch so a capture from another chat is
+// never reused.
 // ============================================================================
 let lastMainPrompt = '';
 let lastMainPromptEpoch = -1;
 
 function captureMainPrompt(payload) {
     try {
+        if (payload?.dryRun) return;
         if (typeof payload === 'string') {
             lastMainPrompt = payload;
+        } else if (payload && typeof payload.prompt === 'string') {
+            // Text-completions: GENERATE_AFTER_COMBINE_PROMPTS { prompt, dryRun }.
+            lastMainPrompt = payload.prompt;
         } else {
-            const messages = Array.isArray(payload) ? payload : (payload?.messages || []);
+            // Chat-completions: CHAT_COMPLETION_PROMPT_READY { chat: messages[], dryRun }.
+            const messages = Array.isArray(payload) ? payload : (payload?.chat || []);
             lastMainPrompt = messages
-                .map(m => `${m.role}: ${typeof m.content === 'string' ? m.content : ''}`)
+                .map(m => {
+                    // content can be a parts array (multimodal) — keep text parts only.
+                    const content = Array.isArray(m.content)
+                        ? m.content.filter(p => p?.type === 'text').map(p => p.text || '').join('')
+                        : (typeof m.content === 'string' ? m.content : '');
+                    return `${m.role}: ${content}`;
+                })
                 .join('\n\n');
         }
         lastMainPromptEpoch = chatEpoch;
@@ -2494,11 +2507,13 @@ async function _doInit() {
         });
 
         // AI Notepad extract-mode: capture the full composed main-model prompt each
-        // turn. _registerEs feature-detects undefined event types, so an ST build
-        // lacking either event skips it harmlessly (extract falls back to
-        // response-only context).
+        // turn. CHAT_COMPLETION_PROMPT_READY covers chat-completions APIs,
+        // GENERATE_AFTER_COMBINE_PROMPTS covers text-completions APIs (the only
+        // string-prompt event ST emits before generation). _registerEs
+        // feature-detects undefined event types, so an ST build lacking either
+        // skips it harmlessly (extract falls back to response-only context).
         _registerEs(event_types.CHAT_COMPLETION_PROMPT_READY, captureMainPrompt);
-        _registerEs(event_types.TEXT_COMPLETION_READY, captureMainPrompt);
+        _registerEs(event_types.GENERATE_AFTER_COMBINE_PROMPTS, captureMainPrompt);
 
         _registerEs(event_types.GENERATION_ENDED, () => {
             const settings = getSettings();
