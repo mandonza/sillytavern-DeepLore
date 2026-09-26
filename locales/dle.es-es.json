@@ -65,6 +65,8 @@
   "dle_ai_notepad_custom_tag_placeholder_full": "Déjalo vacío para el valor por defecto. Indica a la IA que añada <dle-notes> después de su respuesta.",
   "dle_ai_notepad_enabled_label": "Activar bloc de notas IA",
   "dle_ai_notepad_enabled_tooltip": "Activa el bloc de notas IA — se capturan notas de sesión y se reinyectan en futuros mensajes.",
+  "dle_ai_notepad_manual_only_label": "Solo disparo manual",
+  "dle_ai_notepad_manual_only_tooltip": "No capturar notas automáticamente tras cada respuesta de la IA — solo cuando ejecutes /dle-ai-notepad extract manualmente.",
   "dle_ai_notepad_fuzzy_threshold_label_full": "Umbral de deduplicación difusa",
   "dle_ai_notepad_fuzzy_threshold_tooltip_full": "Umbral de similitud Bigram-Dice usado por el botón 'Desduplicar' del popup del bloc. Valores más bajos detectan más casi-duplicados pero pueden fusionar notas distintas. Por defecto: 0.85.",
   "dle_ai_notepad_max_entries_label_full": "Máximo de entradas (límite FIFO)",

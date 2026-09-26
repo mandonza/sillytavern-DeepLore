@@ -65,6 +65,8 @@
   "dle_ai_notepad_custom_tag_placeholder_full": "Оставь пустым для значения по умолчанию. Указывает ИИ добавлять <dle-notes> после ответа.",
   "dle_ai_notepad_enabled_label": "Включить блокнот ИИ",
   "dle_ai_notepad_enabled_tooltip": "Включить блокнот ИИ — заметки сеанса захватываются и повторно внедряются в будущие сообщения.",
+  "dle_ai_notepad_manual_only_label": "Только ручной запуск",
+  "dle_ai_notepad_manual_only_tooltip": "Не собирать заметки автоматически после каждого ответа ИИ — только при ручном запуске /dle-ai-notepad extract.",
   "dle_ai_notepad_fuzzy_threshold_label_full": "Порог нечёткой дедупликации",
   "dle_ai_notepad_fuzzy_threshold_tooltip_full": "Порог сходства по биграммам-Дайса, используемый кнопкой «Дедупликация» во всплывающем окне блокнота. Более низкие значения улавливают больше почти-дубликатов, но могут объединять разные заметки. По умолчанию 0.85.",
   "dle_ai_notepad_max_entries_label_full": "Макс. записей (предел FIFO)",

@@ -71,6 +71,7 @@ export const defaultSettings = {
     // AI Notepad (AI-written session notes)
     aiNotepadEnabled: false,
     aiNotepadMode: 'tag',    // 'tag' = AI emits <dle-notes>; 'extract' = post-gen API call extracts notes
+    aiNotepadManualOnly: false, // true = no auto-capture after responses; only /dle-ai-notepad extract
     aiNotepadPosition: 1,
     aiNotepadDepth: 4,
     aiNotepadRole: 0,

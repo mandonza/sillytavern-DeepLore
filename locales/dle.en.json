@@ -64,6 +64,8 @@
   "dle_ai_notepad_custom_tag_placeholder_full": "Leave empty for default. Instructs the AI to append <dle-notes> after its response.",
   "dle_ai_notepad_enabled_label": "Enable AI Notepad",
   "dle_ai_notepad_enabled_tooltip": "Enable AI Notepad — session notes are captured and reinjected into future messages.",
+  "dle_ai_notepad_manual_only_label": "Manual Trigger Only",
+  "dle_ai_notepad_manual_only_tooltip": "Don't capture notes automatically after each AI response — only when you run /dle-ai-notepad extract manually.",
   "dle_ai_notepad_fuzzy_threshold_label_full": "Fuzzy Dedup Threshold",
   "dle_ai_notepad_fuzzy_threshold_tooltip_full": "How similar two notes must be for the 'Deduplicate' button to treat them as the same (higher = stricter). Lower values catch more near-duplicates but may merge distinct notes. Default: 0.85.",
   "dle_ai_notepad_max_entries_label_full": "Max Entries (oldest notes drop first)",

@@ -65,6 +65,8 @@
   "dle_ai_notepad_custom_tag_placeholder_full": "留空使用默认。指示 AI 在响应后附加 <dle-notes>。",
   "dle_ai_notepad_enabled_label": "启用 AI 记事本",
   "dle_ai_notepad_enabled_tooltip": "启用 AI 记事本 — 会话笔记会被捕获并重新注入到后续消息中。",
+  "dle_ai_notepad_manual_only_label": "仅手动触发",
+  "dle_ai_notepad_manual_only_tooltip": "不在每次 AI 回复后自动捕获笔记 — 仅在你手动运行 /dle-ai-notepad extract 时捕获。",
   "dle_ai_notepad_fuzzy_threshold_label_full": "模糊去重阈值",
   "dle_ai_notepad_fuzzy_threshold_tooltip_full": "记事本弹窗中「去重」按钮使用的 Bigram-Dice 相似度阈值。值越低能捕获越多近似重复项,但可能合并不同的笔记。默认 0.85。",
   "dle_ai_notepad_max_entries_label_full": "最大条目数(FIFO 上限)",

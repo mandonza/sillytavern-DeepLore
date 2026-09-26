@@ -65,6 +65,8 @@
   "dle_ai_notepad_custom_tag_placeholder_full": "空にするとデフォルトを使用します。AIに対し、応答の後に<dle-notes>を追加するよう指示します。",
   "dle_ai_notepad_enabled_label": "AIノートパッドを有効化",
   "dle_ai_notepad_enabled_tooltip": "AIノートパッドを有効化 — セッションノートをキャプチャし、今後のメッセージに再注入します。",
+  "dle_ai_notepad_manual_only_label": "手動トリガーのみ",
+  "dle_ai_notepad_manual_only_tooltip": "AIの各応答後に自動でノートを取得しない — /dle-ai-notepad extract を手動実行したときのみ取得します。",
   "dle_ai_notepad_fuzzy_threshold_label_full": "ファジー重複除去しきい値",
   "dle_ai_notepad_fuzzy_threshold_tooltip_full": "ノートパッドポップアップの「重複除去」ボタンが使用するBigram-Dice類似度しきい値です。値が低いほど近似重複を多く検出しますが、別個のメモまでマージしてしまう恐れがあります。デフォルト: 0.85。",
   "dle_ai_notepad_max_entries_label_full": "最大エントリー数（FIFO上限）",

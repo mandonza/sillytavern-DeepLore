@@ -2662,6 +2662,9 @@ async function _doInit() {
         _registerEs(event_types.GENERATION_ENDED, () => {
             const settings = getSettings();
             if (!settings.aiNotepadEnabled) return;
+            // Manual Trigger Only: no auto-capture after responses — the user
+            // runs /dle-ai-notepad extract when they want notes updated.
+            if (settings.aiNotepadManualOnly) return;
             const mode = settings.aiNotepadMode || 'tag';
             const lastMessage = chat[chat.length - 1];
             if (!lastMessage || lastMessage.is_user || !lastMessage.mes) return;
@@ -2734,7 +2737,7 @@ async function _doInit() {
 
             // --- AI Notepad fallback extraction (catches cases GENERATION_ENDED missed, e.g. swipe) ---
             try {
-                if (settings.aiNotepadEnabled) {
+                if (settings.aiNotepadEnabled && !settings.aiNotepadManualOnly) {
                     // BUG-AUDIT-C02: same race as C01 — capture epoch before extractAiNotes
                     // so CHAT_CHANGED between extract and metadata append can't write to wrong chat.
                     const renderEpoch = chatEpoch;

@@ -65,6 +65,8 @@
   "dle_ai_notepad_custom_tag_placeholder_full": "Leer lassen für Standard. Weist die KI an, <dle-notes> nach ihrer Antwort anzuhängen.",
   "dle_ai_notepad_enabled_label": "KI-Notizblock aktivieren",
   "dle_ai_notepad_enabled_tooltip": "KI-Notizblock aktivieren — Sitzungsnotizen werden erfasst und in zukünftige Nachrichten reinjiziert.",
+  "dle_ai_notepad_manual_only_label": "Nur manuell auslösen",
+  "dle_ai_notepad_manual_only_tooltip": "Notizen nicht automatisch nach jeder KI-Antwort erfassen — nur wenn du /dle-ai-notepad extract manuell ausführst.",
   "dle_ai_notepad_fuzzy_threshold_label_full": "Fuzzy-Deduplikations-Schwelle",
   "dle_ai_notepad_fuzzy_threshold_tooltip_full": "Bigram-Dice-Ähnlichkeitsschwelle, die vom Button «Duplikate entfernen» im Notizblock-Popup verwendet wird. Niedrigere Werte erkennen mehr Beinahe-Duplikate, können aber unterschiedliche Notizen zusammenführen. Standard 0.85.",
   "dle_ai_notepad_max_entries_label_full": "Max. Einträge (FIFO-Begrenzung)",

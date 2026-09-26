@@ -1472,6 +1472,7 @@ function loadPopupSettings($container) {
 
     // ── Features — AI Notebook ──
     $c('#dle-sp-ai-notepad-enabled').prop('checked', settings.aiNotepadEnabled);
+    $c('#dle-sp-ai-notepad-manual-only').prop('checked', !!settings.aiNotepadManualOnly);
     const aiNbMode = settings.aiNotepadMode || 'tag';
     $c(`input[name="dle-sp-ai-notepad-mode"][value="${aiNbMode}"]`).prop('checked', true);
     $c('#dle-sp-ai-notepad-prompt').val(settings.aiNotepadPrompt || '');
@@ -2225,6 +2226,9 @@ function bindPopupEvents($container) {
     // ── Features — AI Notebook ──
     $c('#dle-sp-ai-notepad-enabled').on('change', function () {
         settings.aiNotepadEnabled = $(this).prop('checked'); saveSettingsDebounced();
+    });
+    $c('#dle-sp-ai-notepad-manual-only').on('change', function () {
+        settings.aiNotepadManualOnly = $(this).prop('checked'); saveSettingsDebounced();
     });
     $c('#dle-sp-ai-notepad-prompt').on('input', function () { settings.aiNotepadPrompt = $(this).val(); saveSettingsDebounced(); });
     $c('#dle-sp-ai-notepad-extract-prompt').on('input', function () { settings.aiNotepadExtractPrompt = $(this).val(); saveSettingsDebounced(); });
