@@ -359,7 +359,7 @@ If the response contains visible "notes to self", "OOC" commentary, or meta-comm
 
 If there is nothing noteworthy, respond with exactly: NOTHING_TO_NOTE
 
-Otherwise, respond with concise bullet points only — no preamble, no headers, no explanation. Just the notes.`;
+Otherwise, respond with the COMPLETE updated set of session notes — carry over anything still relevant from the previous notes, add the new items, and drop anything superseded or no longer true. Your response replaces the previous notes entirely.`;
 
 /** Visible note-taking prose patterns stripped from messages in extract mode. */
 const VISIBLE_NOTES_PATTERNS = [
@@ -619,8 +619,10 @@ export async function runNotepadExtraction({ msgIndex = null, fullChat = false, 
             }
         }
         if (responseText && responseText !== 'NOTHING_TO_NOTE') {
-            const existing = chat_metadata.deeplore_ai_notepad || '';
-            chat_metadata.deeplore_ai_notepad = capNotepad((existing + '\n' + responseText).trim());
+            // The extraction model receives the previous notes as a reference and
+            // returns the complete updated set — replace, don't append (appending
+            // duplicated every note the model chose to keep).
+            chat_metadata.deeplore_ai_notepad = capNotepad(responseText);
             // #10: immediate save (BUG-306) — debounced-only loses the note on a fast chat switch.
             try { saveMetadata(); } catch { saveMetadataDebounced(); }
             pushEvent('ai_notepad', { action: 'extract_completed', noteLength: responseText?.length || 0, fullChat, manual });
